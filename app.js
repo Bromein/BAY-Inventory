@@ -3,6 +3,41 @@ const requestData = document.querySelector("#request-form");
 let inventory = [];
 let openRequests = [];
 
+
+function displayRequests(requestsArr) {
+    const list = document.querySelector(".requests");
+    //reset the list to re-render with new items
+    list.textContent = '';
+
+    requestsArr.forEach((itemObj, index) => {
+        let {item, date, amount} = itemObj;
+        
+
+        //create items
+        const section = document.createElement("div");
+        const listItem = document.createElement("span");
+        const deleteButton = document.createElement("button");
+
+        section.classList.add("list-container")
+        listItem.classList.add("list-item");
+        deleteButton.classList.add('delete-btn');
+        deleteButton.textContent = "X"
+        listItem.textContent = `${date} | ${item} | ${amount}`;
+
+        listItem.addEventListener('click', () => listItem.classList.toggle('striked'));
+        deleteButton.addEventListener('click', () => {
+            openRequests.splice(index, 1)
+            displayRequests(openRequests);
+        });
+
+        section.appendChild(listItem);
+        section.appendChild(deleteButton);
+        list.appendChild(section);
+    });
+};
+////////////////////
+///////////////////
+
 function displayInventory(inventoryArr) {
 
     const list = document.querySelector(".inventory");
@@ -59,27 +94,14 @@ function addItemToInventory(e, type) {
         const itemData = document.querySelector('#request-item');
         const dateData = document.querySelector('#request-date');
         const amount = document.querySelector('#request-amount');
+        const newObj = {
+            "item": itemData.value,
+            "date": dateData.value,
+            "amount": amount.value,
+        };
 
-        //list is the column
-        const list = document.querySelector(".requests");
-        //newDiv is the container
-        const section = document.createElement("div");
-        //span inside the div
-        const listItem = document.createElement("span");
-        //delete button inside the div
-        const deleteButton = document.createElement("button");
-
-        section.classList.add("list-item");
-        deleteButton.classList.add("delete-btn");
-        deleteButton.innerText = "X";
-        listItem.textContent = `${itemData.value} | ${dateData.value} | ${amount.value}`;
-
-        section.appendChild(deleteButton);
-        section.appendChild(listItem);
-
-        deleteButton.addEventListener('click', () => this.remove())
-        listItem.addEventListener('click', () => listItem.classList.toggle('striked'))
-        list.appendChild(section);
+        openRequests.push(newObj)
+        displayRequests(openRequests);
         resetFormData(itemData, dateData, amount);
     }
 
