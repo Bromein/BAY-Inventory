@@ -3,117 +3,84 @@ const requestData = document.querySelector("#request-form");
 let inventory = [];
 let openRequests = [];
 
+function createListItem(itemObj, index, type) {
+  const { item, date, amount } = itemObj;
 
-function displayRequests(requestsArr) {
-    const list = document.querySelector(".requests");
-    //reset the list to re-render with new items
-    list.textContent = '';
+  //create items
+  const section = document.createElement("div");
+  const listItem = document.createElement("span");
+  const deleteButton = document.createElement("button");
 
-    requestsArr.forEach((itemObj, index) => {
-        let {item, date, amount} = itemObj;
-        
+  section.classList.add("list-container");
+  listItem.classList.add("list-item");
+  deleteButton.classList.add("delete-btn");
+  deleteButton.textContent = "X";
+  listItem.textContent = `${date} | ${item} | ${amount}`;
 
-        //create items
-        const section = document.createElement("div");
-        const listItem = document.createElement("span");
-        const deleteButton = document.createElement("button");
+  // Toggle striked class on click
+  listItem.addEventListener("click", () =>
+    listItem.classList.toggle("striked")
+  );
 
-        section.classList.add("list-container")
-        listItem.classList.add("list-item");
-        deleteButton.classList.add('delete-btn');
-        deleteButton.textContent = "X"
-        listItem.textContent = `${date} | ${item} | ${amount}`;
-
-        listItem.addEventListener('click', () => listItem.classList.toggle('striked'));
-        deleteButton.addEventListener('click', () => {
-            openRequests.splice(index, 1)
-            displayRequests(openRequests);
-        });
-
-        section.appendChild(listItem);
-        section.appendChild(deleteButton);
-        list.appendChild(section);
-    });
-};
-////////////////////
-///////////////////
-
-function displayInventory(inventoryArr) {
-
-    const list = document.querySelector(".inventory");
-    //reset the list to re-render with new items
-    list.textContent = '';
-
-    inventoryArr.forEach((itemObj, index) => {
-        let {item, date, amount} = itemObj;
-        
-
-        //create items
-        const section = document.createElement("div");
-        const listItem = document.createElement("span");
-        const deleteButton = document.createElement("button");
-
-        section.classList.add("list-container")
-        listItem.classList.add("list-item");
-        deleteButton.classList.add('delete-btn');
-        deleteButton.textContent = "X"
-        listItem.textContent = `${date} | ${item} | ${amount}`;
-
-        listItem.addEventListener('click', () => listItem.classList.toggle('striked'));
-        deleteButton.addEventListener('click', () => {
-            inventory.splice(index, 1)
-            displayInventory(inventory);
-        });
-
-        section.appendChild(listItem);
-        section.appendChild(deleteButton);
-        list.appendChild(section);
-    });
-};
-
-
-
-function addItemToInventory(e, type) {
-    if (type === "add") {
-        e.preventDefault();
-        const itemData = document.querySelector("#item");
-        const dateData = document.querySelector("#date");
-        const amount = document.querySelector('#add-amount');
-        const newObj = {
-            "item": itemData.value,
-            "date": dateData.value,
-            "amount": amount.value,
-        };
-
-        inventory.push(newObj);
-        displayInventory(inventory);
-        resetFormData(itemData, dateData, amount);
-        
-    } else if (type === "request") {
-        e.preventDefault();
-        const itemData = document.querySelector('#request-item');
-        const dateData = document.querySelector('#request-date');
-        const amount = document.querySelector('#request-amount');
-        const newObj = {
-            "item": itemData.value,
-            "date": dateData.value,
-            "amount": amount.value,
-        };
-
-        openRequests.push(newObj)
-        displayRequests(openRequests);
-        resetFormData(itemData, dateData, amount);
+  // Remove item from list on delete
+  deleteButton.addEventListener("click", () => {
+    if (type === "inventory") {
+      inventory.splice(index, 1);
+      displayList(inventory, ".inventory");
+    } else {
+      openRequests.splice(index, 1);
+      displayList(openRequests, ".requests");
     }
+  });
 
+  section.appendChild(listItem);
+  section.appendChild(deleteButton);
+  return section;
 }
 
+function displayList(itemsArr, listSelector) {
+  const list = document.querySelector(listSelector);
+  list.textContent = "";
+
+  itemsArr.forEach((itemObj, index) => {
+    const listItem = createListItem(
+      itemObj,
+      index,
+      listSelector === ".inventory" ? "inventory" : "requests"
+    );
+    list.appendChild(listItem);
+  });
+  
+}
+
+function addItemToList(e, type) {
+  e.preventDefault();
+  const itemData = document.querySelector(`#${type}-item`);
+  const dateData = document.querySelector(`#${type}-date`);
+  const amount = document.querySelector(`#${type}-amount`);
+  const newObj = {
+    item: itemData.value,
+    date: dateData.value,
+    amount: amount.value,
+  };
+
+  if (type === "add") {
+    inventory.push(newObj);
+    displayList(inventory, ".inventory");
+  } else if (type === "request") {
+    openRequests.push(newObj);
+    displayList(openRequests, ".requests");
+  }
+  resetFormData(itemData, dateData, amount);
+}
+
+// Reset form fields
 function resetFormData(item, date, amount) {
-    item.value = "";
-    date.value = "";
-    amount.value = "";
+  item.value = "";
+  date.value = "";
+  amount.value = "";
 }
 
-addData.addEventListener('submit', e => addItemToInventory(e, "add"));
-requestData.addEventListener('submit', e => addItemToInventory(e, "request"));
-
-
+// Event Listeners
+addData.addEventListener("submit", (e) => addItemToList(e, "add"));
+requestData.addEventListener("submit", (e) => addItemToList(e, "request"));

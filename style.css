@@ -1,37 +1,46 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-Color Theme Swatches in Hex
-.accent-darker { color: #071359; }
-.accent-dark { color: #0D208C; }
-.accent-darkest{ color: #060E40; }
-.accent-light { color: #1F4CA6; }
-.gray { color: #F2F2F2; }
+.accent-darker {
+  color: #071359;
+}
+.accent-dark {
+  color: #0d208c;
+}
+.accent-darkest {
+  color: #060e40;
+}
+.accent-light {
+  color: #1f4ca6;
+}
+.gray {
+  color: #f2f2f2;
+}
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 h2 {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 /* page */
 .container {
-    height: 100vh;
-    width: 100vw;
-    display: grid;
-    grid-template-columns: 2fr 5fr;
-    grid-template-rows: 1fr 8fr 1fr;
-    grid-template-areas: 
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  grid-template-rows: 1fr 8fr 1fr;
+  grid-template-areas:
     "left body"
     "left body"
     "left body";
-    background-color: #F2F2F2;
-    color: #1F4CA6;
+  background-color: #f2f2f2;
+  color: #1f4ca6;
 }
 /* Temp removal
 .navbar {
@@ -42,106 +51,98 @@ h2 {
 } */
 
 .navbar ul {
-    display: flex;
-    gap: 2rem;
+  display: flex;
+  gap: 2rem;
 }
 
 .side {
-    /* height: 100%; */
-    grid-area: left;
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: space-evenly;
-    border-right: 1px solid black;
-    padding: 0 2.5rem;
+  /* height: 100%; */
+  grid-area: left;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: space-evenly;
+  border-right: 1px solid black;
+  padding: 0 2.5rem;
 }
 
 .form {
-    /* margin: 0 25px; */
-    display: flex;
-    flex-direction: column;
-    /* gap: 10px; */
-
-
+  /* margin: 0 25px; */
+  display: flex;
+  flex-direction: column;
+  /* gap: 10px; */
 }
-
 
 .form input {
-    /* background-color: #1F4CA6; */
-    border: 1px solid #d4d2d2;
-    border-radius: 5px;
-    height: 20px;
-    outline: none;
-    transition-duration: .25s;
-    /* margin: .5rem 0; */
+  /* background-color: #1F4CA6; */
+  border: 1px solid #d4d2d2;
+  border-radius: 5px;
+  height: 20px;
+  outline: none;
+  transition-duration: 0.25s;
+  /* margin: .5rem 0; */
 }
-    .form input:hover {
-        border-color: #1F4CA6;
-        height: 23px;
-        font-size: 1rem;
-    }
-    .form input:focus {
-        border-color: #1F4CA6;
-        height: 23px;
-        font-size: 1rem;
-    }
+.form input:hover {
+  border-color: #1f4ca6;
+  height: 23px;
+  font-size: 1rem;
+}
+.form input:focus {
+  border-color: #1f4ca6;
+  height: 23px;
+  font-size: 1rem;
+}
 
-    .form input:focus {
-        border-color: #1F4CA6;
-    }
-    
-    .form button {
-        margin: 1rem 0;
-        min-width: 25%;
-        align-self: flex-end;
-        justify-self: flex-end;
-        border: 1px solid #1F4CA6;
-        border-radius: .25rem;
-        cursor: pointer;
-        transition-duration: .5s;
-    }
-        .form button:hover {
-            background-color: #1F4CA6;
-            color: #f2f2f2;
-            /* height: 25%; */
-            min-width: 100%;
-            text-align: center;
-            border-radius: 5px;
-        }
+.form input:focus {
+  border-color: #1f4ca6;
+}
+
+.form button {
+  margin: 1rem 0;
+  min-width: 25%;
+  align-self: flex-end;
+  justify-self: flex-end;
+  border: 1px solid #1f4ca6;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition-duration: 0.5s;
+}
+.form button:hover {
+  background-color: #1f4ca6;
+  color: #f2f2f2;
+  /* height: 25%; */
+  min-width: 100%;
+  text-align: center;
+  border-radius: 5px;
+}
 
 .main {
-    padding: 0 25px;
-    grid-area: body;
-    display: flex;
-    justify-content: space-between;
-    
+  padding: 0 25px;
+  grid-area: body;
+  display: flex;
+  justify-content: space-between;
 }
-    .main div {
-        /* width: 50%; */
-    }
-
 .list-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}    
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 .striked {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 .delete-btn {
-    /* padding: .25rem; */
-    color: red;
-    /* border-radius: 2%; */
-    cursor: pointer;
-    border: none;
+  /* padding: .25rem; */
+  color: red;
+  /* border-radius: 2%; */
+  cursor: pointer;
+  border: none;
 }
 
-    .delete-btn:hover {
-        background-color:#d4d2d2
-    }
+.delete-btn:hover {
+  background-color: #d4d2d2;
+}
 .list-item {
-    cursor: pointer;
-    margin: 1rem 0;
+  cursor: pointer;
+  margin: 1rem 0;
 }
