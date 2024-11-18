@@ -1,3 +1,11 @@
+/*
+    ADD LATER:
+        *Add a 'completed' button on the request -- when clicked, add item to inventory
+        *
+
+*/
+
+
 const addData = document.querySelector("#add-form");
 const requestData = document.querySelector("#request-form");
 let inventory = [];
@@ -50,7 +58,7 @@ function displayList(itemsArr, listSelector) {
     );
     list.appendChild(listItem);
   });
-  
+
 }
 
 function addItemToList(e, type) {
@@ -84,3 +92,6 @@ function resetFormData(item, date, amount) {
 // Event Listeners
 addData.addEventListener("submit", (e) => addItemToList(e, "add"));
 requestData.addEventListener("submit", (e) => addItemToList(e, "request"));
+
+
+
